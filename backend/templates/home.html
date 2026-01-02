@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Error Insight Pro</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+:root{
+  --bg1:#0f2027;
+  --bg2:#203a43;
+  --bg3:#2c5364;
+  --glass:rgba(255,255,255,0.08);
+  --border:rgba(255,255,255,0.15);
+  --text:#e5e7eb;
+  --muted:#9ca3af;
+  --accent:#38bdf8;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Segoe UI,Arial,sans-serif;
+  background:linear-gradient(135deg,var(--bg1),var(--bg2),var(--bg3));
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--text);
+}
+.app{
+  width:950px;
+  max-width:95%;
+  background:var(--glass);
+  backdrop-filter:blur(18px);
+  border:1px solid var(--border);
+  border-radius:22px;
+  box-shadow:0 40px 80px rgba(0,0,0,.45);
+  overflow:hidden;
+}
+header{
+  padding:26px 32px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid var(--border);
+}
+.brand{font-size:22px;font-weight:700}
+.main{
+  display:grid;
+  grid-template-columns:1.5fr 1fr;
+}
+.left,.right{padding:32px}
+.right{
+  border-left:1px solid var(--border);
+  background:rgba(0,0,0,.18);
+}
+textarea{
+  width:100%;
+  height:150px;
+  background:rgba(0,0,0,.35);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:18px;
+  color:white;
+  resize:none;
+}
+button{
+  margin-top:18px;
+  width:100%;
+  padding:16px;
+  border:none;
+  border-radius:16px;
+  background:linear-gradient(135deg,#38bdf8,#6366f1);
+  color:white;
+  font-size:16px;
+  font-weight:600;
+  cursor:pointer;
+}
+.result{
+  margin-top:20px;
+  padding:18px;
+  border-radius:16px;
+  background:rgba(56,189,248,.12);
+  border:1px solid rgba(56,189,248,.3);
+}
+.item{
+  padding:14px;
+  border-radius:14px;
+  background:rgba(0,0,0,.35);
+  border:1px solid var(--border);
+  margin-bottom:12px;
+}
+footer{
+  padding:16px;
+  text-align:center;
+  color:var(--muted);
+  border-top:1px solid var(--border);
+}
+</style>
+</head>
+
+<body>
+<div class="app">
+
+<header>
+  <div class="brand">Error Insight Pro</div>
+  <div>Internal Developer Tool</div>
+</header>
+
+<div class="main">
+  <div class="left">
+    <h2>Analyze Errors Instantly</h2>
+    <form method="post">
+      <textarea name="error" placeholder="Example: KeyError: 'user_id'"></textarea>
+      <button type="submit">Analyze Error</button>
+    </form>
+
+    {% if explanation %}
+    <div class="result">
+      <b>Explanation</b><br><br>
+      {{ explanation }}
+    </div>
+    {% endif %}
+  </div>
+
+  <div class="right">
+    <h3>Recent Analysis</h3>
+    {% for error, exp in history %}
+      <div class="item">
+        <b>{{ error }}</b><br>{{ exp }}
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+
+
+</div>
+</body>
+</html>
